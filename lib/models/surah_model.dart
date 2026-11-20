@@ -2,7 +2,6 @@ import 'dart:convert';
 
 // ─── Top-level helpers ────────────────────────────────────────────────────────
 
-/// Decode list surah dari response /surat
 List<SurahModel> surahListFromJson(String str) {
   final Map<String, dynamic> json = jsonDecode(str);
   return List<SurahModel>.from(
@@ -10,13 +9,12 @@ List<SurahModel> surahListFromJson(String str) {
   );
 }
 
-/// Decode detail surah dari response /surat/:nomor
 SurahDetailModel surahDetailFromJson(String str) {
   final Map<String, dynamic> json = jsonDecode(str);
   return SurahDetailModel.fromJson(json['data']);
 }
 
-// ─── SurahModel (list item) ───────────────────────────────────────────────────
+// ─── SurahModel ───────────────────────────────────────────────────────────────
 
 class SurahModel {
   final int nomor;
@@ -26,7 +24,6 @@ class SurahModel {
   final String tempatTurun;
   final String arti;
   final String deskripsi;
-  final Map<String, String> audioFull;
 
   const SurahModel({
     required this.nomor,
@@ -36,7 +33,6 @@ class SurahModel {
     required this.tempatTurun,
     required this.arti,
     required this.deskripsi,
-    required this.audioFull,
   });
 
   factory SurahModel.fromJson(Map<String, dynamic> json) => SurahModel(
@@ -47,12 +43,7 @@ class SurahModel {
         tempatTurun: json['tempatTurun'] as String,
         arti: json['arti'] as String,
         deskripsi: json['deskripsi'] as String,
-        audioFull: _toStringMap(json['audioFull'] as Map),
       );
-
-  /// Cast safely: JSON values come as dynamic, force them to String.
-  static Map<String, String> _toStringMap(Map raw) =>
-      raw.map((k, v) => MapEntry(k.toString(), v.toString()));
 }
 
 // ─── AyatModel ───────────────────────────────────────────────────────────────
@@ -62,14 +53,12 @@ class AyatModel {
   final String teksArab;
   final String teksLatin;
   final String teksIndonesia;
-  final Map<String, String> audio;
 
   const AyatModel({
     required this.nomorAyat,
     required this.teksArab,
     required this.teksLatin,
     required this.teksIndonesia,
-    required this.audio,
   });
 
   factory AyatModel.fromJson(Map<String, dynamic> json) => AyatModel(
@@ -77,11 +66,7 @@ class AyatModel {
         teksArab: json['teksArab'] as String,
         teksLatin: json['teksLatin'] as String,
         teksIndonesia: json['teksIndonesia'] as String,
-        audio: _toStringMap(json['audio'] as Map),
       );
-
-  static Map<String, String> _toStringMap(Map raw) =>
-      raw.map((k, v) => MapEntry(k.toString(), v.toString()));
 }
 
 // ─── SurahDetailModel ─────────────────────────────────────────────────────────
@@ -94,7 +79,6 @@ class SurahDetailModel {
   final String tempatTurun;
   final String arti;
   final String deskripsi;
-  final Map<String, String> audioFull;
   final List<AyatModel> ayat;
 
   const SurahDetailModel({
@@ -105,7 +89,6 @@ class SurahDetailModel {
     required this.tempatTurun,
     required this.arti,
     required this.deskripsi,
-    required this.audioFull,
     required this.ayat,
   });
 
@@ -118,12 +101,8 @@ class SurahDetailModel {
         tempatTurun: json['tempatTurun'] as String,
         arti: json['arti'] as String,
         deskripsi: json['deskripsi'] as String,
-        audioFull: _toStringMap(json['audioFull'] as Map),
         ayat: List<AyatModel>.from(
           (json['ayat'] as List).map((x) => AyatModel.fromJson(x)),
         ),
       );
-
-  static Map<String, String> _toStringMap(Map raw) =>
-      raw.map((k, v) => MapEntry(k.toString(), v.toString()));
 }

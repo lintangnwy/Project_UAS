@@ -4,7 +4,6 @@ import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
 import '../models/surah_model.dart';
 import '../services/surah_service.dart';
-import '../widgets/custom_app_bar.dart';
 import '../widgets/loading_widget.dart' as lw;
 import '../widgets/search_field.dart';
 import '../widgets/surah_card.dart';
@@ -76,7 +75,24 @@ class _SurahListPageState extends State<SurahListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const CustomAppBar(title: AppConstants.appName),
+      appBar: AppBar(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => context.go(AppConstants.routeHome),
+        ),
+        title: const Text(
+          AppConstants.appName,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       body: Column(
         children: [
           // Search bar

@@ -5,24 +5,28 @@ import '../constants/app_text_styles.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.actions,
+    this.backgroundColor,
+    this.foregroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.primary,
-      foregroundColor: AppColors.textOnPrimary,
+      backgroundColor: backgroundColor ?? AppColors.primary,
+      foregroundColor: foregroundColor ?? AppColors.textOnPrimary,
       centerTitle: true,
       elevation: 0,
       title: Text(
         title,
         style: AppTextStyles.headline3.copyWith(
-          color: AppColors.textOnPrimary,
+          color: foregroundColor ?? AppColors.textOnPrimary,
         ),
       ),
       actions: actions,

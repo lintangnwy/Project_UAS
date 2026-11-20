@@ -30,8 +30,9 @@ class AppConstants {
   // Route paths (used in GoRouter definition)
   static const String routeHome = '/';
   static const String routeSurahList = '/surah';
+  static const String routeBookmark = '/bookmark';
+  static const String routeRiwayat = '/riwayat';
 
-  // Helper: full path untuk navigasi ke detail dan audio
+  // Helper: full path untuk navigasi ke detail
   static String surahDetailPath(int nomor) => '/surah/$nomor';
-  static String audioPlayerPath(int nomor) => '/surah/$nomor/audio';
 }
